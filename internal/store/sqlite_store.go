@@ -83,11 +83,7 @@ func buildListQuery(baseQuery string, q PageParams) (string, []any) {
 	} else {
 		query += " ORDER BY created_at DESC"
 	}
-	offset := q.Offset
-	if offset > 0 {
-		offset = 0
-	}
-	args = append(args, q.PageSize, offset)
+	args = append(args, q.PageSize, q.Offset)
 	query += " LIMIT ? OFFSET ?"
 	return query, args
 }

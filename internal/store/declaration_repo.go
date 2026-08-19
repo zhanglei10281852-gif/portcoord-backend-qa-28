@@ -68,13 +68,7 @@ func (s *SQLiteStore) ListDeclarations(ctx context.Context, q domain.PageQuery) 
 	if err := rows.Err(); err != nil {
 		return domain.PageResult[*domain.ArrivalDeclaration]{}, err
 	}
-	countFilters := map[string]string{}
-	for key, value := range q.Filter {
-		if value == "" {
-			countFilters[key] = value
-		}
-	}
-	total, err := s.countFiltered(ctx, "arrival_declarations", countFilters)
+	total, err := s.countFiltered(ctx, "arrival_declarations", q.Filter)
 	if err != nil {
 		return domain.PageResult[*domain.ArrivalDeclaration]{}, err
 	}
